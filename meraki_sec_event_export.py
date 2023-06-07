@@ -22,6 +22,12 @@ def pythonError(e):
 
 
 def getMerakiOrgs():
+    """
+    function to get a list of Meraki Orgs the API key has access to 
+
+    Returns:
+        merakiOrgList (List): List of all Meraki Organizations that the API key has access to.
+    """
 
     merakiOrgList = []
 
@@ -36,7 +42,16 @@ def getMerakiOrgs():
 
 
 def getOrgSecEvents(orgId, orgName):
-    # The below is some test data as my API call returned zero events
+    """
+    Function to get the security events for the past 31 days and append the Org Name onto them.
+
+    Args:
+        orgId (string): Org ID which the API call with call against.
+        orgName (string): Org Name for the ID which the API call is against.
+
+    Returns:
+        secEvents (List): List of all security events
+    """
     secEvents = []
 
     try:
@@ -58,11 +73,12 @@ def getOrgSecEvents(orgId, orgName):
 if "__main__" == __name__:
 
     """
-    This is what is run when the file is run directly, this will setup the script, get a list of Meraki networks and back each up.
+    This is what is run when the file is run directly, this will setup the script, get a list of all Meraki Orgs your API key has access to
+    along with pulling all security events for each Org before exporting the list to a CSV. 
     """
 
     # Setting up Meraki SDK
-    apiKey = getpass.getpass()
+    apiKey = getpass.getpass(prompt="Please enter your Meraki API Key: ")
 
     dashboard = meraki.DashboardAPI(api_key=apiKey,
                                     print_console=False,
